@@ -1,0 +1,135 @@
+###################################################Start of part 1
+
+import sys
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QSlider, QGridLayout
+from PyQt5.QtGui import QColor, QPalette
+from PyQt5.QtCore import Qt, QCoreApplication
+
+
+
+class Color(QWidget): 
+    def __init__(self, color1, color2, color3): 
+        super().__init__() 
+        self.setAutoFillBackground(True) # Background Color
+        self.myPalette = self.palette() # Define a palette
+        
+        self.myPalette.setColor(QPalette.Window, QColor(color1, color2, color3)) 
+        self.setPalette(self.myPalette) # assign palette
+        
+        
+
+class Fenetre(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Color picker")
+        self.setFixedSize(500, 200) # to set a default window size
+        self.layout = QGridLayout()
+        self.red_slider = QSlider()
+        self.green_slider = QSlider()
+        self.blue_slider = QSlider()
+        
+        self.labelr= QLabel('Red', self)
+        self.labelr.setStyleSheet('color: #D0312D')
+        self.labelg= QLabel('Green', self)
+        self.labelg.setStyleSheet('color: #138808')
+        self.labelb= QLabel('Blue', self)
+        self.labelb.setStyleSheet('color: #0072BB')
+        
+        
+        
+        self.red_slider = QSlider(Qt.Horizontal)
+        self.green_slider = QSlider(Qt.Horizontal)
+        self.blue_slider = QSlider(Qt.Horizontal)
+
+        self.red_slider.setMinimum(0)
+        self.red_slider.setMaximum(255)
+        self.green_slider.setMinimum(0)
+        self.green_slider.setMaximum(255)
+        self.blue_slider.setMinimum(0)
+        self.blue_slider.setMaximum(255)
+        self.red_slider.sliderMoved.connect(self.slider_positionr)
+        #self.red_slider.sliderMoved.connect(self.paintEvent)
+        self.green_slider.sliderMoved.connect(self.slider_positiong)
+        #self.green_slider.sliderMoved.connect(self.paintEvent)
+        self.blue_slider.sliderMoved.connect(self.slider_positionb)
+        #self.blue_slider.sliderMoved.connect(self.paintEvent)
+        
+        
+        valuer= self.red_slider.sliderPosition()
+        valueg= self.green_slider.sliderPosition()
+        valueb= self.blue_slider.sliderPosition()
+        
+        self.rgb_value= QLabel()
+        color= self.rgb_value.text()
+       
+        
+        self.finalLabel= QLabel(f'rgb({valuer},{valueg},{valueb})', self)
+        self.finalLabel.setStyleSheet(f"background: {color}")
+        self.finalLabel.setAlignment(Qt.AlignCenter | Qt.AlignBottom) 
+        
+        self.labelr.setWordWrap(True)
+        self.labelg.setWordWrap(True)
+        self.labelb.setWordWrap(True)
+        
+        
+        self.layout.addWidget(self.red_slider,0,0)
+        self.layout.addWidget(self.labelr,0,2)
+        self.layout.addWidget(self.green_slider,1,0)
+        self.layout.addWidget(self.labelg,1,2)
+        self.layout.addWidget(self.blue_slider,2,0)
+        self.layout.addWidget(self.labelb,2,2)
+        self.layout.addWidget(self.finalLabel)
+        
+        self.widget = QWidget()
+        self.widget.setLayout(self.layout)
+        self.setCentralWidget(self.widget)
+
+
+		
+    def slider_positionr(self, valuer):
+        valueg= self.green_slider.sliderPosition()
+        valueb= self.blue_slider.sliderPosition()
+        
+        self.labelr.setText(str(valuer))
+        self.finalLabel.setText(f'rgb({valuer},{valueg},{valueb})')
+        
+        rgb= (valuer, valueg, valueb)
+        c='#%02x%02x%02x' % rgb
+        self.rgb_value.setText(f'{c}')  
+        
+    
+    def slider_positiong(self, valueg):
+        valuer= self.red_slider.sliderPosition()
+        valueb= self.blue_slider.sliderPosition()
+        
+        self.labelg.setText(str(valueg))
+        self.finalLabel.setText(f'rgb({valuer},{valueg},{valueb})')
+        
+        rgb= (valuer, valueg, valueb)
+        c='#%02x%02x%02x' % rgb
+        self.rgb_value.setText(f'{c}') 
+        
+        
+    def slider_positionb(self, valueb):
+        valuer= self.red_slider.sliderPosition()
+        valueg= self.green_slider.sliderPosition()
+        
+        self.labelb.setText(str(valueb))
+        self.finalLabel.setText(f'rgb({valuer},{valueg},{valueb})') 
+        
+        rgb= (valuer, valueg, valueb)
+        c='#%02x%02x%02x' % rgb
+        self.rgb_value.setText(f'{c}') 
+        
+  
+  
+app = QCoreApplication.instance()
+if app is None:
+    app = QApplication(sys.argv)
+    
+window = Fenetre()
+window.show()
+
+app.exec_()
+
+################################################### End of part 1
