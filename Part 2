@@ -1,0 +1,86 @@
+import sys
+from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QStatusBar, QToolBar
+from PyQt5.QtCore import QCoreApplication, QSize
+from PyQt5.QtGui import QIcon, QKeySequence
+
+
+#all methods to add
+
+class Window(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        
+        super().__init__()
+        self.setWindowTitle("Image Editor")
+        self.setMinimumWidth(700)
+        self.setMinimumHeight(300)
+        
+        self.reset = QAction(QIcon("/home/jade/ESME/HMI/DM/animal-penguin.png"), "Reset", self)
+        #self.reset.setStatusTip("C'est le premier bouton")
+        #self.reset.triggered.connect(self.onMyToolBarButtonClick) TODO
+        self.reset.setShortcut(QKeySequence('Ctrl+D'))
+        
+        self.open = QAction(QIcon("/home/jade/ESME/HMI/DM/folder-open-feed.png"), "Open", self)
+        self.open.setShortcut(QKeySequence('Ctrl+O'))
+        
+        
+        self.red_filter = QAction(QIcon("/home/jade/ESME/HMI/DM/android_rouge.png"), "Red Filter", self)
+        self.red_filter.setShortcut(QKeySequence('Ctrl+R'))
+        
+        self.green_filter = QAction(QIcon("/home/jade/ESME/HMI/DM/android_vert.png"), "Green Filter", self)
+        self.green_filter.setShortcut(QKeySequence('Ctrl+V'))
+        
+        self.blue_filter = QAction(QIcon("/home/jade/ESME/HMI/DM/android_bleu.png"), "Blue Filter", self)
+        self.blue_filter.setShortcut(QKeySequence('Ctrl+B'))
+        
+        self.neg_filter = QAction(QIcon("/home/jade/ESME/HMI/DM/android_noiretblanc.png"), "Negative Filter", self)
+        self.neg_filter.setShortcut(QKeySequence('Ctrl+N'))
+        
+        self.grey_filter = QAction(QIcon("/home/jade/ESME/HMI/DM/android_gris.png"), "Grey Filter", self)
+        self.grey_filter.setShortcut(QKeySequence('Ctrl+G'))
+        
+        
+        self.by4 = QAction(QIcon("/home/jade/ESME/HMI/DM/application-tile.png"), "By 4", self)
+        self.by4.setShortcut(QKeySequence('Ctrl+P'))
+        
+        
+        self.color_gen = QAction(QIcon("/home/jade/ESME/HMI/DM/color.png"), "Color Generator", self) #I used an icone from yusukekamiyamane.com
+        self.color_gen.setShortcut(QKeySequence('Ctrl+C'))
+        
+        
+        self.exit = QAction(QIcon("/home/jade/ESME/HMI/DM/bomb.png"), "Exit", self)
+        self.exit.setShortcut(QKeySequence('Ctrl+Q'))
+        
+        
+        self.setStatusBar(QStatusBar())
+        
+        self.menuImage = self.menuBar().addMenu("Image")
+        self.menuImage.addAction(self.reset)
+        self.menuImage.addAction(self.open)
+        
+        self.menuFilter = self.menuBar().addMenu("Filter")
+        self.menuFilter.addAction(self.red_filter)
+        self.menuFilter.addAction(self.green_filter)
+        self.menuFilter.addAction(self.blue_filter)
+        self.menuFilter.addAction(self.neg_filter)
+        self.menuFilter.addAction(self.grey_filter)
+        
+        self.menuPhotomaton = self.menuBar().addMenu("Photomaton")
+        self.menuPhotomaton.addAction(self.by4)
+        
+        self.menuColor = self.menuBar().addMenu("Color")
+        self.menuColor.addAction(self.color_gen)
+        
+        self.menuExit = self.menuBar().addMenu("Exit")
+        self.menuExit.addAction(self.exit)
+        
+ 
+    
+app = QCoreApplication.instance()
+if app is None:
+    app = QApplication(sys.argv)
+    
+window = Window()
+window.show()
+
+app.exec_()
