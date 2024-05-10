@@ -74,6 +74,55 @@ class Window(QMainWindow):
         self.menuExit = self.menuBar().addMenu("Exit")
         self.menuExit.addAction(self.exit)
         
+        #task 4 
+        self.toolbar = QToolBar("My toolbar")
+        self.toolbar.setIconSize(QSize(16,16))
+        self.addToolBar(self.toolbar)
+        
+        self.b_reset = QAction(QIcon("/home/jade/ESME/HMI/DM/animal-penguin.png"), "Reset", self)
+        #self.b_reset.setStatusTip("Driiiiiing!!!")
+        self.b_reset.setToolTip("Reset")    # Infobulle
+        #self.b_reset.triggered.connect(self.onToolBarButtonClick)
+        self.toolbar.addAction(self.b_reset)
+        
+        self.b_open = QAction(QIcon("/home/jade/ESME/HMI/DM/folder-open-feed.png"), "Open", self)
+        self.b_open.setToolTip("Open")   
+        self.toolbar.addAction(self.b_open)
+        
+        self.b_red = QAction(QIcon("/home/jade/ESME/HMI/DM/android_rouge.png"), "Red filter", self)
+        self.b_red.setToolTip("Red filter")   
+        self.toolbar.addAction(self.b_red)
+        
+        self.b_green = QAction(QIcon("/home/jade/ESME/HMI/DM/android_vert.png"), "Green filter", self)
+        self.b_green.setToolTip("Green filter")   
+        self.toolbar.addAction(self.b_green)
+        
+        self.b_blue = QAction(QIcon("/home/jade/ESME/HMI/DM/android_bleu.png"), "Blue filter", self)
+        self.b_blue.setToolTip("Blue filter")   
+        self.toolbar.addAction(self.b_blue)
+        
+        self.b_neg = QAction(QIcon("/home/jade/ESME/HMI/DM/android_noiretblanc.png"), "Negative filter", self)
+        self.b_neg.setToolTip("Negative filter")   
+        self.toolbar.addAction(self.b_neg)
+        
+        self.b_grey = QAction(QIcon("/home/jade/ESME/HMI/DM/android_gris.png"), "Grey filter", self)
+        self.b_grey.setToolTip("Negative filter")   
+        self.toolbar.addAction(self.b_grey)
+        
+        self.b_4 = QAction(QIcon("/home/jade/ESME/HMI/DM/application-tile.png"), "By 4", self)
+        self.b_4.setToolTip("By 4")   
+        self.toolbar.addAction(self.b_4)
+        
+        self.b_color = QAction(QIcon("/home/jade/ESME/HMI/DM/color.png"), "Color Generator", self)
+        self.b_color.setToolTip("Color Generator")   
+        self.toolbar.addAction(self.b_color)
+        
+        self.b_exit = QAction(QIcon("/home/jade/ESME/HMI/DM/bomb.png"), "Exit", self)
+        self.b_exit.setToolTip("Exit")   
+        self.toolbar.addAction(self.b_exit)
+        
+        self.setStatusBar(QStatusBar(self))
+        
  
     
 app = QCoreApplication.instance()
