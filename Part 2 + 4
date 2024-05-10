@@ -9,8 +9,6 @@ from PyQt5.QtGui import QIcon, QKeySequence
 class Window(QMainWindow):
     def __init__(self):
         super().__init__()
-        
-        super().__init__()
         self.setWindowTitle("Image Editor")
         self.setMinimumWidth(700)
         self.setMinimumHeight(300)
