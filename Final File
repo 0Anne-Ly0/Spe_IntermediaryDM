@@ -1,0 +1,334 @@
+import sys
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QSlider, QGridLayout, QAction, QToolBar, QStatusBar, QGridLayout
+from PyQt5.QtCore import Qt, QCoreApplication, QSize
+from PyQt5.QtGui import QIcon, QKeySequence, QPixmap
+from PIL import Image
+from tkinter import filedialog
+
+class Fenetre(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        
+        super().__init__()
+        self.setWindowTitle("Image Editor")
+        self.setMinimumWidth(700)
+        self.setMinimumHeight(300)
+        self.layout= QGridLayout()
+ 
+##Task1        
+ 
+        self.reset = QAction(QIcon("animal-penguin.png"), "Reset", self)
+        #self.reset.setStatusTip("C'est le premier bouton")
+        #self.reset.triggered.connect(self.onMyToolBarButtonClick) TODO
+        self.reset.setShortcut(QKeySequence('Ctrl+D'))
+        
+        self.open = QAction(QIcon("folder-open-feed.png"), "Open", self)
+        self.open.setShortcut(QKeySequence('Ctrl+O'))
+        
+        
+        self.red_filter = QAction(QIcon("android_rouge.png"), "Red Filter", self)
+        self.red_filter.setShortcut(QKeySequence('Ctrl+R'))
+        
+        self.green_filter = QAction(QIcon("android_vert.png"), "Green Filter", self)
+        self.green_filter.setShortcut(QKeySequence('Ctrl+V'))
+        
+        self.blue_filter = QAction(QIcon("android_bleu.png"), "Blue Filter", self)
+        self.blue_filter.setShortcut(QKeySequence('Ctrl+B'))
+        
+        self.neg_filter = QAction(QIcon("android_noiretblanc.png"), "Negative Filter", self)
+        self.neg_filter.setShortcut(QKeySequence('Ctrl+N'))
+        
+        self.grey_filter = QAction(QIcon("android_gris.png"), "Grey Filter", self)
+        self.grey_filter.setShortcut(QKeySequence('Ctrl+G'))
+        
+        
+        self.by4 = QAction(QIcon("application-tile.png"), "By 4", self)
+        self.by4.setShortcut(QKeySequence('Ctrl+P'))
+        
+        
+        self.color_gen = QAction(QIcon("color.png"), "Color Generator", self) #I used an icone from yusukekamiyamane.com
+        self.color_gen.setShortcut(QKeySequence('Ctrl+C'))
+        
+        
+        self.exit = QAction(QIcon("bomb.png"), "Exit", self)
+        self.exit.setShortcut(QKeySequence('Ctrl+Q'))
+        
+        
+        self.menuImage = self.menuBar().addMenu("Image")
+        self.menuImage.addAction(self.reset)
+        self.menuImage.addAction(self.open)
+        
+        self.menuFilter = self.menuBar().addMenu("Filter")
+        self.menuFilter.addAction(self.red_filter)
+        self.menuFilter.addAction(self.green_filter)
+        self.menuFilter.addAction(self.blue_filter)
+        self.menuFilter.addAction(self.neg_filter)
+        self.menuFilter.addAction(self.grey_filter)
+        
+        self.menuPhotomaton = self.menuBar().addMenu("Photomaton")
+        self.menuPhotomaton.addAction(self.by4)
+        
+        self.menuColor = self.menuBar().addMenu("Color")
+        self.menuColor.addAction(self.color_gen)
+        
+        self.menuExit = self.menuBar().addMenu("Exit")
+        self.menuExit.addAction(self.exit)    
+##Task 4        
+        self.toolbar = QToolBar()
+        self.toolbar.setIconSize(QSize(16,16))
+        self.addToolBar(self.toolbar)
+        
+        self.b_reset = QAction(QIcon("animal-penguin.png"), "Reset", self)
+        #self.b_reset.setStatusTip("Driiiiiing!!!")
+        self.b_reset.setToolTip("Reset")    # Infobulle
+        #self.b_reset.triggered.connect(self.onToolBarButtonClick)
+        self.toolbar.addAction(self.b_reset)
+        
+        self.b_open = QAction(QIcon("folder-open-feed.png"), "Open", self)
+        self.b_open.setToolTip("Open")   
+        self.toolbar.addAction(self.b_open)
+        
+        self.b_red = QAction(QIcon("android_rouge.png"), "Red filter", self)
+        self.b_red.setToolTip("Red filter")   
+        self.toolbar.addAction(self.b_red)
+        
+        self.b_green = QAction(QIcon("android_vert.png"), "Green filter", self)
+        self.b_green.setToolTip("Green filter")   
+        self.toolbar.addAction(self.b_green)
+        
+        self.b_blue = QAction(QIcon("android_bleu.png"), "Blue filter", self)
+        self.b_blue.setToolTip("Blue filter")   
+        self.toolbar.addAction(self.b_blue)
+        
+        self.b_neg = QAction(QIcon("android_noiretblanc.png"), "Negative filter", self)
+        self.b_neg.setToolTip("Negative filter")   
+        self.toolbar.addAction(self.b_neg)
+        
+        self.b_grey = QAction(QIcon("android_gris.png"), "Grey filter", self)
+        self.b_grey.setToolTip("Negative filter")   
+        self.toolbar.addAction(self.b_grey)
+        
+        self.b_4 = QAction(QIcon("application-tile.png"), "By 4", self)
+        self.b_4.setToolTip("By 4")   
+        self.toolbar.addAction(self.b_4)
+        
+        self.b_color = QAction(QIcon("color.png"), "Color Generator", self)
+        self.b_color.setToolTip("Color Generator")   
+        self.toolbar.addAction(self.b_color)
+        
+        self.b_exit = QAction(QIcon("bomb.png"), "Exit", self)
+        self.b_exit.setToolTip("Exit")   
+        self.toolbar.addAction(self.b_exit)
+        
+        self.setStatusBar(QStatusBar(self))
+        
+        
+        '''def onOpen():
+            fileName = filedialog.askopenfilename(initialdir = "/",
+                                          title = "Select a File",
+                                          filetypes = (("Image files",
+                                                        "*.jpg*"),
+                                                       ("all files",
+                                                        "*.*")))
+            try:
+              img = Image.open(fileName)
+            except IOError:
+              print("Erreur sur ouverture du fichier " + fileName)
+              sys.exit(1)
+              
+            return img, fileName
+        
+        
+        img, fileName= onOpen()'''
+ 
+##Task3   
+ 
+        fileName= 'monkey.jpg'
+        img= Image.open(fileName)
+        width, height = img.size 
+                
+        pixmap1= QPixmap(fileName)
+        pixmap1 = pixmap1.scaledToWidth(700)
+        self.widget= QWidget()
+        self.label1= QLabel(self.widget)
+        self.label1.setPixmap(pixmap1)
+        self.label1.setScaledContents(True)
+        
+        self.setStatusTip(f'{width} X {height}')
+        self.setStatusBar(QStatusBar())
+        
+
+        
+        self.red_filter= img.load()
+        self.green_filter= img.load()
+        self.blue_filter= img.load()
+        self.neg_filter= img.load()
+        self.grey_filter= img.load()
+        
+        for i in range(width): 
+            for j in range(height): 
+                
+                r, g, b = img.getpixel((i, j)) 
+                grayscale= (0.299*r + 0.587*g + 0.114*b) 
+          
+                self.grey_filter[i, j] = (int(grayscale), int(grayscale), int(grayscale)) 
+                self.red_filter[i, j] = (r, 0, 0)
+                self.green_filter[i, j] = (0, g, 0)
+                self.blue_filter[i, j] = (0, 0, b)
+                self.neg_filter[i, j] = (255-r,255-g,255-b) 
+             
+        
+##Task2        
+        
+        self.red_slider = QSlider()
+        self.green_slider = QSlider()
+        self.blue_slider = QSlider()
+        
+        self.labelr= QLabel('Red', self)
+        self.labelr.setStyleSheet('color: #D0312D')
+        self.labelg= QLabel('Green', self)
+        self.labelg.setStyleSheet('color: #138808')
+        self.labelb= QLabel('Blue', self)
+        self.labelb.setStyleSheet('color: #0072BB')
+        
+        
+        
+        self.red_slider = QSlider(Qt.Horizontal)
+        self.green_slider = QSlider(Qt.Horizontal)
+        self.blue_slider = QSlider(Qt.Horizontal)
+
+        self.red_slider.setMinimum(0)
+        self.red_slider.setMaximum(255)
+        self.green_slider.setMinimum(0)
+        self.green_slider.setMaximum(255)
+        self.blue_slider.setMinimum(0)
+        self.blue_slider.setMaximum(255)
+        self.red_slider.sliderMoved.connect(self.slider_positionr)
+        #self.red_slider.sliderMoved.connect(self.paintEvent)
+        self.green_slider.sliderMoved.connect(self.slider_positiong)
+        #self.green_slider.sliderMoved.connect(self.paintEvent)
+        self.blue_slider.sliderMoved.connect(self.slider_positionb)
+        #self.blue_slider.sliderMoved.connect(self.paintEvent)
+        
+        
+        valuer= self.red_slider.sliderPosition()
+        valueg= self.green_slider.sliderPosition()
+        valueb= self.blue_slider.sliderPosition()
+        
+        self.rgb_value= QLabel()       
+        
+        self.finalLabel= QLabel(f'rgb({valuer},{valueg},{valueb})', self)
+        self.finalLabel.setAlignment(Qt.AlignCenter | Qt.AlignBottom) 
+        
+        self.labelr.setWordWrap(True)
+        self.labelg.setWordWrap(True)
+        self.labelb.setWordWrap(True)
+        
+        
+        self.layout.addWidget(self.label1)
+        self.layout.addWidget(self.red_slider,1,0)
+        self.layout.addWidget(self.labelr,1,2)
+        self.layout.addWidget(self.green_slider,2,0)
+        self.layout.addWidget(self.labelg,2,2)
+        self.layout.addWidget(self.blue_slider,3,0)
+        self.layout.addWidget(self.labelb,3,2)
+        self.layout.addWidget(self.finalLabel)
+        
+        self.widget= QWidget()
+        self.widget.setLayout(self.layout)
+        self.setCentralWidget(self.widget)
+        
+        img.close()
+    
+##Task3    
+    
+    def onPhoto4(onOpen, self):
+        img= self.onOpen
+        width, height = img.size 
+        if img.size[0]>= 700:
+            self.setMinimumWidth(img.size[0])
+        if img.size[1]>= 300:
+            self.setMinimumHeight(img.size[1])
+        final_img = Image.new(img.mode,img.size) 
+        for j in range(width):
+            for i in range(height):
+                pixel = img.getpixel((i,j))
+                if i%2==0 and j%2==0:
+                    (x,y)=(i//2,j//2)
+    
+                if i%2==0 and j%2==1:
+                     (x,y)=(i//2,(width+j)//2)
+    
+                if i%2==1 and j%2==0:
+                    (x,y)=((height+i)//2,j//2)
+    
+                if i%2==1 and j%2==1:
+                    (x,y)=((width+i)//2,(height+j)//2)
+    
+                final_img.putpixel((x,y), pixel)
+        return final_img
+                 
+    
+    
+    def onReset(final_img, initial_img, self):
+        final_img= initial_img
+        return final_img
+
+##Task2
+		
+    def slider_positionr(self, valuer):
+        valueg= self.green_slider.sliderPosition()
+        valueb= self.blue_slider.sliderPosition()
+        
+        self.labelr.setText(str(valuer))
+        
+        rgb= (valuer, valueg, valueb)
+        c='#%02x%02x%02x' % rgb
+        self.rgb_value.setText(f'{c}')  
+        
+        self.finalLabel.setText(f'rgb({valuer},{valueg},{valueb})')
+        color= self.rgb_value.text()
+        self.finalLabel.setStyleSheet("background-color: "+ color)
+            
+        
+    def slider_positiong(self, valueg):
+        valuer= self.red_slider.sliderPosition()
+        valueb= self.blue_slider.sliderPosition()
+        
+        self.labelg.setText(str(valueg))
+        
+        rgb= (valuer, valueg, valueb)
+        c='#%02x%02x%02x' % rgb
+        self.rgb_value.setText(f'{c}') 
+        
+        self.finalLabel.setText(f'rgb({valuer},{valueg},{valueb})')
+        color= self.rgb_value.text()
+        self.finalLabel.setStyleSheet("background-color: "+ color)
+    
+    
+    def slider_positionb(self, valueb):
+        valuer= self.red_slider.sliderPosition()
+        valueg= self.green_slider.sliderPosition()
+        
+        self.labelb.setText(str(valueb))
+        
+        rgb= (valuer, valueg, valueb)
+        c='#%02x%02x%02x' % rgb
+        self.rgb_value.setText(f'{c}')
+        
+        self.finalLabel.setText(f'rgb({valuer},{valueg},{valueb})')
+        color= self.rgb_value.text()
+        self.finalLabel.setStyleSheet("background-color: "+ color)
+      
+            
+
+  
+        
+app = QCoreApplication.instance()
+if app is None:
+    app = QApplication(sys.argv)
+    
+window = Fenetre()
+window.show()
+
+app.exec_()
